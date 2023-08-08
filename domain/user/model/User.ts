@@ -1,4 +1,4 @@
-import { IUser } from "../interface/IUser";
+import { IUser } from "../interface/entity/IUser";
 
 export class User implements IUser {
   id: number;

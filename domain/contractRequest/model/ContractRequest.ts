@@ -1,4 +1,6 @@
-export class ContractRequest {
+import { IContractRequest } from "../interface/entity/IContractRequest";
+
+export class ContractRequest implements IContractRequest {
   id: number;
   contractorId: number;
   licensePlanId: number;

@@ -1,4 +1,6 @@
-export class License {
+import { ILicense } from "../interface/entity/ILicense";
+
+export class License implements ILicense {
   id: number;
   contractRequestId: number;
   started_at: Date;
