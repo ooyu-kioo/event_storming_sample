@@ -1,7 +1,7 @@
-import { ILicensePlan } from "../interface/entity/ILicensePlan";
-
-export class LicensePlan implements ILicensePlan {
-  id: number;
-  price: number;
-  contractDuration: number;
+export class LicensePlan {
+  constructor(
+    public id: number,
+    public price: number,
+    public contractDuration: string
+  ) {}
 }

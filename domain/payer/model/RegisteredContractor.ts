@@ -1,9 +1,13 @@
-import { IRegisteredContractor } from "../interface/entity/IRegisteredContractor";
+export class RegisteredContractor {
+  constructor(public contractorIds: number[]) {}
 
-export class RegisteredContractor implements IRegisteredContractor {
-  contractorId: number;
+  add(id: number): void {
+    this.contractorIds.push(id);
+  }
 
-  constructor(contractorId: number) {
-    this.contractorId = contractorId;
+  remove(id: number): void {
+    this.contractorIds = this.contractorIds.filter(
+      (contractorId) => contractorId !== id
+    );
   }
 }

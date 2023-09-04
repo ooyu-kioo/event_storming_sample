@@ -1,33 +1,44 @@
-import { IScheduledPayment } from "../interface/entity/IScheduledPayment";
-import { IPayment } from "../interface/strategy/IPayment";
-import { IPaymentMethod } from "../interface/strategy/IPaymentMethod";
+import { IChargable } from "./paymentMethod/interface/IChargable";
 
-export class ScheduledPayment implements IPayment, IScheduledPayment {
-  id: number;
-  payerId: number;
-  amount: number;
-  paymentMethod: IPaymentMethod;
-  dueDate: Date;
-  paid: boolean;
-
+export class ScheduledPayment {
   constructor(
-    id: number,
-    payerId: number,
-    amount: number,
-    payment: IPaymentMethod,
-    dueDate: Date,
-    paid: boolean
-  ) {
-    this.id = id;
-    this.payerId = payerId;
-    this.amount = amount;
-    this.paymentMethod = payment;
-    this.amount = amount;
-    this.dueDate = dueDate;
-    this.paid = paid;
+    public id: number,
+    public paymentId: number,
+    public amount: number,
+    public method: IChargable,
+    public dueDate: Date,
+    public paid: boolean = false
+  ) {}
+
+  // 2回目以降の支払い予定を生成する
+  static createScheduledPyaemnts(
+    totalAmount: number,
+    splitCount: number,
+    method: IChargable,
+    purchasedAt: Date
+  ): ScheduledPayment[] {
+    const result: ScheduledPayment[] = [];
+    const amountPerPayment = ScheduledPayment.splitAmount(
+      totalAmount,
+      splitCount
+    );
+
+    for (let i = 1; i < splitCount; i++) {
+      const dueDate = new Date(purchasedAt);
+      dueDate.setMonth(purchasedAt.getMonth() + i);
+      const newPayment = new ScheduledPayment(
+        i,
+        method.paymentId,
+        amountPerPayment,
+        method,
+        dueDate
+      );
+      result.push(newPayment);
+    }
+    return result;
   }
 
-  makePayment(): void {
-    this.paymentMethod.execute(this.amount);
+  static splitAmount(amount: number, splitCount: number): number {
+    return amount / splitCount;
   }
 }

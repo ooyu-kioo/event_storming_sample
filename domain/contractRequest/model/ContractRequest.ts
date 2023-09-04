@@ -1,26 +1,11 @@
-import { IContractRequest } from "../interface/entity/IContractRequest";
-
-export class ContractRequest implements IContractRequest {
-  id: number;
-  contractorId: number;
-  licensePlanId: number;
-  paid: boolean;
-  price: number;
-  contract_duration: number;
-
+export class ContractRequest {
   constructor(
-    contractorId: number,
-    licensePlanId: number,
-    paid: boolean,
-    price: number,
-    contract_duration: number
-  ) {
-    this.contractorId = contractorId;
-    this.licensePlanId = licensePlanId;
-    this.paid = paid;
-    this.price = price;
-    this.contract_duration = contract_duration;
-  }
+    public contractorId: number,
+    public licensePlanId: number,
+    public paid: boolean,
+    public price: number,
+    public contract_duration: number
+  ) {}
 
   approve(): boolean {
     this.paid = true;
