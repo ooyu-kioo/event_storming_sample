@@ -4,3 +4,4 @@ Event Storming を用いたモデリング試行時の検証コード
 
 commit チェック用のやつー
 commit check2
+commit check3
